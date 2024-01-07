@@ -19,8 +19,9 @@
 - 터미널에서 `go test` 명령을 실행하고, 명령을 실행할 때 모든 테스트가 아래와 같이 통과하는지 확인한다.
 
 ```
+=== RUN   TestHello
+--- PASS: TestHello (0.00s)
 PASS
-ok      go-racing-car  x.xxxs
 ```
 
 ---
@@ -113,9 +114,8 @@ phili : -----
 ## 🎯 프로그래밍 요구 사항
 
 - Go 1.21.5 버전에서 실행 가능해야 한다. 
-- 프로그램 실행의 시작점은 `main.go`의 `main()`이다.
-- `go.mod` 파일을 변경하기 전에는 Slack을 통해 공지하며, 되도록 외부 라이브러리를 사용하지 않는다.
-- [Go 공식 코딩 가이드](https://go.dev/doc/effective_go)와 [코드 리뷰 커멘트 모음](https://go.dev/wiki/CodeReviewComments)을 준수하며 프로그래밍한다.
+- 프로그램 실행의 시작점은 `application.go`의 `main()`이다.
+- [Go 공식 코딩 가이드](https://go.dev/doc/effective_go)와 [뱅크 샐러드 Go 코딩 컨벤션](https://blog.banksalad.com/tech/go-best-practice-in-banksalad/)을 준수하며 프로그래밍한다.
   - 커밋을 하기 전 반드시 **gofmt** 기능을 이용해 코드를 포맷팅한다.
 - 프로그램 구현이 완료되면 모든 테스트가 성공해야 한다. 테스트는 `go test` 명령으로 실행할 수 있다.
 - 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동하지 않는다.
