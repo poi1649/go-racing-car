@@ -31,6 +31,6 @@ func TestCarPosition(t *testing.T) {
 
 func TestCarMove(t *testing.T) {
 	car, _ := racingcar.NewCar("test")
-	car.Move()
+	car.Move(6)
 	assert.Equal(t, 1, car.Position)
 }
