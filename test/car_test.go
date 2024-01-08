@@ -23,3 +23,8 @@ func TestCreateCarWithOverLengthName(t *testing.T) {
 	errMsg := "차 이름은 1자 이상 5자 이하만 가능합니다"
 	assert.Equal(t, errMsg, err.Error())
 }
+
+func TestCarPosition(t *testing.T) {
+	car, _ := racingcar.NewCar("test")
+	assert.Equal(t, 0, car.Position)
+}
