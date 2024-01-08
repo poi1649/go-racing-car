@@ -28,3 +28,9 @@ func TestCarPosition(t *testing.T) {
 	car, _ := racingcar.NewCar("test")
 	assert.Equal(t, 0, car.Position)
 }
+
+func TestCarMove(t *testing.T) {
+	car, _ := racingcar.NewCar("test")
+	car.Move()
+	assert.Equal(t, 1, car.Position)
+}
