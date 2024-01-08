@@ -35,3 +35,10 @@ func TestCarMove(t *testing.T) {
 	assert.Equal(t, nil, err)
 	assert.Equal(t, 1, car.Position)
 }
+
+func TestCarNotMove(t *testing.T) {
+	car, _ := racingcar.NewCar("test")
+	err := car.Move(3)
+	assert.Equal(t, nil, err)
+	assert.Equal(t, 0, car.Position)
+}
