@@ -8,6 +8,12 @@ import (
 
 func TestCreateCar(t *testing.T) {
 	car, err := racingcar.NewCar("test")
-	assert.NotNilf(t, car, "car should not be nil")
-	assert.Nilf(t, err, "err should be nil")
+	assert.Equal(t, nil, err)
+	assert.Equal(t, "test", car.Name)
+}
+
+func TestCreateCarWithInvalidName(t *testing.T) {
+	_, err := racingcar.NewCar("")
+	errMsg := "차 이름은 1자 이상 5자 이하만 가능합니다"
+	assert.Equal(t, errMsg, err.Error())
 }
