@@ -17,3 +17,7 @@ func NewCar(name string) (*Car, error) {
 func checkValidCarName(name string) bool {
 	return 0 < len(name) && len(name) <= 5
 }
+
+func (c *Car) Move() {
+	c.Position++
+}
