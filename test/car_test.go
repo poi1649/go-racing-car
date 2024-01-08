@@ -42,3 +42,11 @@ func TestCarNotMove(t *testing.T) {
 	assert.Equal(t, nil, err)
 	assert.Equal(t, 0, car.Position)
 }
+
+func TestCarMoveWithInvalidFuel(t *testing.T) {
+	car, _ := racingcar.NewCar("test")
+	err := car.Move(10)
+	errMsg := "연료는 0 이상 9 이하만 가능합니다"
+	assert.Equal(t, errMsg, err.Error())
+	assert.Equal(t, 0, car.Position)
+}
