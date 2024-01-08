@@ -18,6 +18,17 @@ func checkValidCarName(name string) bool {
 	return 0 < len(name) && len(name) <= 5
 }
 
-func (c *Car) Move() {
-	c.Position++
+func (c *Car) Move(fuel int) error {
+	if !checkValidFuel(fuel) {
+		return errors.New("연료는 0 이상 9 이하만 가능합니다")
+	}
+	if fuel >= 4 {
+		c.Position += 1
+		return nil
+	}
+	return nil
+}
+
+func checkValidFuel(fuel int) bool {
+	return 0 <= fuel && fuel <= 9
 }
