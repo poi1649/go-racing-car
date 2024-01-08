@@ -12,8 +12,14 @@ func TestCreateCar(t *testing.T) {
 	assert.Equal(t, "test", car.Name)
 }
 
-func TestCreateCarWithInvalidName(t *testing.T) {
+func TestCreateCarWithBlankName(t *testing.T) {
 	_, err := racingcar.NewCar("")
+	errMsg := "차 이름은 1자 이상 5자 이하만 가능합니다"
+	assert.Equal(t, errMsg, err.Error())
+}
+
+func TestCreateCarWithOverLengthName(t *testing.T) {
+	_, err := racingcar.NewCar("123456")
 	errMsg := "차 이름은 1자 이상 5자 이하만 가능합니다"
 	assert.Equal(t, errMsg, err.Error())
 }
