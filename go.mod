@@ -1,4 +1,4 @@
-module github.com/poi1649/go-racing-car
+module github.com/thedevluffy/go-racing-car
 
 go 1.21.5
 

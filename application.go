@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/poi1649/go-racing-car/racingcar"
+	"github.com/thedevluffy/go-racing-car/racingcar"
 )
 
 func main() {

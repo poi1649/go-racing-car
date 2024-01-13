@@ -1,8 +1,8 @@
 package test
 
 import (
-	"github.com/poi1649/go-racing-car/racingcar"
 	"github.com/stretchr/testify/assert"
+	"github.com/thedevluffy/go-racing-car/racingcar"
 
 	"testing"
 )
