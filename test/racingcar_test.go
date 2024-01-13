@@ -9,7 +9,7 @@ import (
 func TestMovableCarMoveForward(t *testing.T) {
 	car := Car{Name: "개발자동차", Position: 0}
 
-	movedCar := car.MoveForward()
+	movedCar := car.Move()
 
 	assert.Equal(
 		t,

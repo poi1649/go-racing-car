@@ -5,7 +5,7 @@ type Car struct {
 	Position int
 }
 
-func (c Car) MoveForward() Car {
+func (c Car) Move() Car {
 	return Car{Name: c.Name, Position: c.Position + 1}
 }
 
