@@ -1,6 +1,14 @@
 package racingcar
 
-// 예시 함수, 구현 시 제거
-func Hello() string {
-	return "Hello, Racing Car!"
+type Car struct {
+	Name     string
+	Position int
+}
+
+func (c Car) MoveForward() Car {
+	return Car{Name: c.Name, Position: c.Position + 1}
+}
+
+func (c Car) Stop() Car {
+	return c
 }
