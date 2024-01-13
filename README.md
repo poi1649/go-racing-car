@@ -131,9 +131,3 @@ phili : -----
     - [커밋 메시지 컨벤션](https://gist.github.com/stephenparish/9941e89d80e2bc58a153) 가이드를 참고해 커밋 메시지를 작성한다.
 
 ---
-
-## 루피 진행
-
-### 패키지 구조
-
-[main 하나면 충분하다는 가이드](https://github.com/golang-standards/project-layout/blob/master/README_ko.md)에 따라 모든 코드는 [racingcar](./racingcar) 에 작성합니다. 
