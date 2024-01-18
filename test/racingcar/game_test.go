@@ -1,4 +1,4 @@
-package test
+package racingcar_test
 
 import (
 	"testing"
