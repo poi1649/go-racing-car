@@ -1,8 +1,14 @@
 package racingcar
 
 import (
+	"errors"
 	"math/rand"
 	"strings"
+)
+
+const (
+	minParticipants = 1
+	maxParticipants = 20
 )
 
 type RaceCars []Car
@@ -12,6 +18,10 @@ type Game struct {
 }
 
 func NewGame(carNames []string) (*Game, error) {
+	if !validateNumberOfCar(len(carNames)) {
+		return nil, errors.New("number of car is not valid")
+	}
+
 	cars := make([]Car, len(carNames))
 	for i, name := range carNames {
 		car, err := NewCar(strings.TrimSpace(name))
@@ -20,7 +30,12 @@ func NewGame(carNames []string) (*Game, error) {
 		}
 		cars[i] = *car
 	}
+
 	return &Game{cars}, nil
+}
+
+func validateNumberOfCar(numberOfCar int) bool {
+	return numberOfCar >= minParticipants && numberOfCar <= maxParticipants
 }
 
 func (game *Game) PlayTurn(moveStrategy MoveStrategy) {
@@ -29,12 +44,15 @@ func (game *Game) PlayTurn(moveStrategy MoveStrategy) {
 	}
 }
 
-const defaultMoveThreshod = 4
+const (
+	defaultMoveThreshod = 4
+	defaultMoveNumRange = 10
+)
 
 type MoveStrategy func() bool
 
 func DefalutMoveStrategy() bool {
-	return rand.Intn(10) >= defaultMoveThreshod
+	return rand.Intn(defaultMoveNumRange) >= defaultMoveThreshod
 }
 
 func PlayTurn(car *Car, isMovable MoveStrategy) {

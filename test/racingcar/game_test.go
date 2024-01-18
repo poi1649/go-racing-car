@@ -1,6 +1,7 @@
 package racingcar_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/poi1649/go-racing-car/racingcar"
@@ -21,6 +22,37 @@ func TestPlayTurn(t *testing.T) {
 		actualPos := car.Position()
 
 		assert.Equal(t, tc.expectedPos, actualPos, "moved position: %d", actualPos)
+	}
+}
+
+func TestNewGame(t *testing.T) {
+	testCases := []struct {
+		names []string
+	}{
+		{names: []string{"test1", "test2"}},
+		{names: []string{"test1", "test2", "test3"}},
+		{names: []string{"test1", " test2"}},
+		{names: []string{"test1", "  test2  "}},
+	}
+	for _, tc := range testCases {
+		game, _ := racingcar.NewGame(tc.names)
+		for i, car := range game.Cars {
+			assert.Equal(t, strings.TrimSpace(tc.names[i]), car.Name(), "car name: %s", car.Name())
+		}
+	}
+}
+
+func TestNewGameError(t *testing.T) {
+	testCases := []struct {
+		names []string
+	}{
+		{names: make([]string, 0)},
+		{names: []string{"", "test2"}},
+		{names: []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"}},
+	}
+	for _, tc := range testCases {
+		_, err := racingcar.NewGame(tc.names)
+		assert.Error(t, err, "error expected %v", tc.names)
 	}
 }
 
