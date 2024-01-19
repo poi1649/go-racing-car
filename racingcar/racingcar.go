@@ -2,6 +2,7 @@ package racingcar
 
 import (
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -14,8 +15,8 @@ func (c *Car) Move() {
 	c.Position += 1
 }
 
-func (c Car) Stop() Car {
-	return c
+func (c Car) String() string {
+	return strings.Repeat("-", c.Position)
 }
 
 type CarGame struct {
