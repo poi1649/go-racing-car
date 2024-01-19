@@ -34,4 +34,5 @@ func main() {
 		game.PlayTurn(racingcar.DefalutMoveStrategy)
 		cli.PrintCurrentStatus(game)
 	}
+	cli.PrintWinners(game)
 }

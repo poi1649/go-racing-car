@@ -76,3 +76,17 @@ func (game *Game) PlayTurn(moveStrategy MoveStrategy) error {
 	game.currentTurnCount++
 	return nil
 }
+
+func (game *Game) Winners() []Car {
+	var winners []Car
+	maxPosition := 0
+	for _, car := range game.Cars {
+		if car.Position() > maxPosition {
+			maxPosition = car.Position()
+			winners = []Car{car}
+		} else if car.Position() == maxPosition {
+			winners = append(winners, car)
+		}
+	}
+	return winners
+}

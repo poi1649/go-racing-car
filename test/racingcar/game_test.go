@@ -81,7 +81,7 @@ func TestIsEnd(t *testing.T) {
 }
 
 func TestGamePlayTurn(t *testing.T) {
-	testMoveStrategy := getTestStrategy()
+	testMoveStrategy := getTestAlternateStrategy()
 	game, _ := racingcar.NewGame([]string{"test1", "test2"}, 1)
 
 	game.PlayTurn(testMoveStrategy)
@@ -95,12 +95,51 @@ func TestGamePlayTurn(t *testing.T) {
 	assert.Equal(t, expectedPos2, actualPos2, "car2 moved position: %d", actualPos2)
 }
 
-// test streategy : true, false, true, false, ... 번갈아가며 반환
-func getTestStrategy() func() bool {
+// test strategy : true, false, true, false, ... 번갈아가며 반환
+func getTestAlternateStrategy() func() bool {
 	isMovable := true
 	return func() bool {
 		result := isMovable
 		isMovable = !isMovable
 		return result
+	}
+}
+
+func TestWinners(t *testing.T) {
+	testCases := []struct {
+		names         []string
+		strategyFucn  func() bool
+		expectedNames []string
+	}{
+		{
+			names:         []string{"test1", "test2"},
+			strategyFucn:  getTestAlternateStrategy(),
+			expectedNames: []string{"test1"},
+		},
+		{
+			names:         []string{"test1", "test2"},
+			strategyFucn:  getTestTrueStrategy(),
+			expectedNames: []string{"test1", "test2"},
+		},
+	}
+	for _, tc := range testCases {
+		game, _ := racingcar.NewGame(tc.names, 2)
+		for i := 0; i < 2; i++ {
+			game.PlayTurn(tc.strategyFucn)
+		}
+		winners := game.Winners()
+		winnerNames := make([]string, len(winners))
+		for i, winner := range winners {
+			winnerNames[i] = winner.Name()
+		}
+
+		assert.ElementsMatch(t, tc.expectedNames, winnerNames, "winners: %v", game.Winners())
+	}
+}
+
+// test strategy to return true only
+func getTestTrueStrategy() func() bool {
+	return func() bool {
+		return true
 	}
 }

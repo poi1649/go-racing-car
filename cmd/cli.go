@@ -46,3 +46,12 @@ func (cli *Cli) PrintCurrentStatus(game *racingcar.Game) {
 	}
 	fmt.Println()
 }
+
+func (cli *Cli) PrintWinners(game *racingcar.Game) {
+	winners := game.Winners()
+	winnerNames := make([]string, len(winners))
+	for i, winner := range winners {
+		winnerNames[i] = winner.Name()
+	}
+	fmt.Printf("최종 우승자: %s\n", strings.Join(winnerNames, ", "))
+}
