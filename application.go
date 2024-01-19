@@ -1,10 +1,7 @@
 package main
 
-import (
-	"fmt"
-	"github.com/poi1649/go-racing-car/racingcar"
-)
+import "github.com/poi1649/go-racing-car/racingcar/controller"
 
 func main() {
-	fmt.Print(racingcar.Hello())
+	controller.StartGame()
 }
