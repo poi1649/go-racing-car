@@ -13,3 +13,14 @@ func TestGenerateCars(t *testing.T) {
 	cars := racingcar.NewCars([]*racingcar.Car{car1, car2, car3})
 	assert.Equal(t, 3, len(cars.Cars))
 }
+
+func TestGenerateCarsWithMethod(t *testing.T) {
+	cars, _ := racingcar.GenerateCars([]string{"test1", "test2", "test3"})
+	assert.Equal(t, 3, len(cars.Cars))
+}
+
+func TestGenerateCarsWithInvalidName(t *testing.T) {
+	_, err := racingcar.GenerateCars([]string{"test1", "test2", ""})
+	errMsg := "차 이름은 1자 이상 5자 이하만 가능합니다"
+	assert.Equal(t, errMsg, err.Error())
+}
