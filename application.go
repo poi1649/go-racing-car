@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/poi1649/go-racing-car/racingcar"
+	"github.com/poi1649/go-racing-car/racingcar/model"
 )
 
 func main() {
-	fmt.Print(racingcar.Hello())
+	fmt.Print(model.Hello())
 }

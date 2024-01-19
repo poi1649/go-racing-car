@@ -1,4 +1,4 @@
-package racingcar
+package model
 
 type Cars struct {
 	Cars []*Car

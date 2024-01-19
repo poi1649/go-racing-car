@@ -1,21 +1,21 @@
-package test
+package model
 
 import (
-	"github.com/poi1649/go-racing-car/racingcar"
+	"github.com/poi1649/go-racing-car/racingcar/model"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestNewFuelGenerator(t *testing.T) {
 	fuels := []int{1, 2, 3}
-	generator := racingcar.NewFixedFuelGenerator(fuels)
+	generator := model.NewFixedFuelGenerator(fuels)
 	fuel, _ := generator.Fuel()
 	assert.Equal(t, 1, fuel)
 }
 
 func TestNewFuelGeneratorWithOverLengthFuel(t *testing.T) {
 	fuels := []int{1, 2, 3}
-	generator := racingcar.NewFixedFuelGenerator(fuels)
+	generator := model.NewFixedFuelGenerator(fuels)
 	generator.Fuel()
 	generator.Fuel()
 	generator.Fuel()

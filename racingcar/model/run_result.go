@@ -1,4 +1,4 @@
-package racingcar
+package model
 
 type RunResult struct {
 	CarNameToPosition map[string]int
