@@ -12,7 +12,8 @@ func TestNewCarNameValidation(t *testing.T) {
 		name string
 	}{
 		{""},
-		{"12345"},
+		{"123456"},
+		{"abcdef"},
 		{"한글다섯글자"},
 	}
 	for _, tc := range testCases {
