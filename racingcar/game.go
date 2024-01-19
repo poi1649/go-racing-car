@@ -77,6 +77,12 @@ func (game *Game) PlayTurn(moveStrategy MoveStrategy) error {
 	return nil
 }
 
+func PlayTurn(car *Car, isMovable MoveStrategy) {
+	if isMovable() {
+		car.MoveForward()
+	}
+}
+
 func (game *Game) Winners() []Car {
 	var winners []Car
 	maxPosition := 0
