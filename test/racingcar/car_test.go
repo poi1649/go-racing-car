@@ -9,16 +9,17 @@ import (
 
 func TestNewCarNameValidation(t *testing.T) {
 	testCases := []struct {
-		name string
+		name        string
+		expectedMsg string
 	}{
-		{""},
-		{"123456"},
-		{"abcdef"},
-		{"한글다섯글자"},
+		{name: "", expectedMsg: "empty name"},
+		{name: "123456", expectedMsg: "too long name"},
+		{name: "abcdef", expectedMsg: "too long name"},
+		{name: "한글다섯글자", expectedMsg: "too long name"},
 	}
 	for _, tc := range testCases {
 		_, err := racingcar.NewCar(tc.name)
-		assert.Error(t, err, "name: %s", tc.name)
+		assert.EqualError(t, err, tc.expectedMsg, "name: %s, expected : %v, actual : %v", tc.name, tc.expectedMsg, err)
 	}
 }
 
