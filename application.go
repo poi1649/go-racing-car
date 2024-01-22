@@ -19,10 +19,10 @@ func main() {
 	cli := cmd.NewCli(bufio.NewReader(os.Stdin))
 
 	fmt.Println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)")
-	carNames := cli.GetCarNames()
+	carNames := cli.MustGetCarNames()
 
 	fmt.Println("시도할 회수는 몇회인가요?")
-	tryCount := cli.GetTryCount()
+	tryCount := cli.MustGetTryCount()
 
 	game, err := racingcar.NewGame(carNames, tryCount)
 	if err != nil {

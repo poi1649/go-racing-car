@@ -17,7 +17,7 @@ func NewCli(reader *bufio.Reader) *Cli {
 	return &Cli{reader: reader}
 }
 
-func (cli *Cli) GetCarNames() []string {
+func (cli *Cli) MustGetCarNames() []string {
 	input, err := cli.reader.ReadString('\n')
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func (cli *Cli) GetCarNames() []string {
 	return strings.Split(input, ",")
 }
 
-func (cli *Cli) GetTryCount() int {
+func (cli *Cli) MustGetTryCount() int {
 	input, err := cli.reader.ReadString('\n')
 	if err != nil {
 		panic(err)
