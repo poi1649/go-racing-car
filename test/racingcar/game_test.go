@@ -8,23 +8,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPlayTurn(t *testing.T) {
-	testCases := []struct {
-		moveStrategy racingcar.MoveStrategy
-		expectedPos  int
-	}{
-		{func() bool { return true }, 1},
-		{func() bool { return false }, 0},
-	}
-	for _, tc := range testCases {
-		car, _ := racingcar.NewCar("test")
-		racingcar.PlayTurn(car, tc.moveStrategy)
-		actualPos := car.Position()
-
-		assert.Equal(t, tc.expectedPos, actualPos, "moved position: %d", actualPos)
-	}
-}
-
 func TestNewGame(t *testing.T) {
 	testCases := []struct {
 		names    []string

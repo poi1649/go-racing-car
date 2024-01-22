@@ -12,10 +12,10 @@ const (
 	allowedMaxTurnCount = 100
 )
 
-type RaceCars []Car
+type Cars []*Car
 
 type Game struct {
-	Cars             RaceCars
+	Cars
 	maxTurnCount     int
 	currentTurnCount int
 }
@@ -37,18 +37,18 @@ func NewGame(carNames []string, maxTurnCount int) (*Game, error) {
 	}, nil
 }
 
-func initCars(carNames []string) ([]Car, error) {
+func initCars(carNames []string) ([]*Car, error) {
 	if !validateNumberOfCar(len(carNames)) {
 		return nil, fmt.Errorf("자동차의 수는 %d대 이상 %d대 이하만 가능합니다.", minParticipants, maxParticipants)
 	}
 
-	cars := make([]Car, len(carNames))
+	cars := make([]*Car, len(carNames))
 	for i, name := range carNames {
 		car, err := NewCar(strings.TrimSpace(name))
 		if err != nil {
 			return nil, err
 		}
-		cars[i] = *car
+		cars[i] = car
 	}
 
 	return cars, nil
@@ -70,17 +70,13 @@ func (game *Game) PlayTurn(moveStrategy MoveStrategy) error {
 	if game.IsEnd() {
 		return fmt.Errorf("게임이 종료되었습니다.")
 	}
-	for i := range game.Cars {
-		PlayTurn(&game.Cars[i], moveStrategy)
+	for _, car := range game.Cars {
+		if moveStrategy() {
+			car.MoveForward()
+		}
 	}
 	game.currentTurnCount++
 	return nil
-}
-
-func PlayTurn(car *Car, isMovable MoveStrategy) {
-	if isMovable() {
-		car.MoveForward()
-	}
 }
 
 func (game *Game) Winners() []Car {
@@ -89,9 +85,9 @@ func (game *Game) Winners() []Car {
 	for _, car := range game.Cars {
 		if car.Position() > maxPosition {
 			maxPosition = car.Position()
-			winners = []Car{car}
+			winners = []Car{*car}
 		} else if car.Position() == maxPosition {
-			winners = append(winners, car)
+			winners = append(winners, *car)
 		}
 	}
 	return winners
