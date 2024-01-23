@@ -106,7 +106,7 @@ poi : -----
 bebe : ----
 phili : -----
 
-최종 우승자 : poi, bebe
+최종 우승자 : poi, phili
 ```
 
 ---
