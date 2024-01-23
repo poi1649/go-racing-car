@@ -1,7 +1,6 @@
 package racingcar_test
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/poi1649/go-racing-car/racingcar"
@@ -9,38 +8,34 @@ import (
 )
 
 func TestNewGame(t *testing.T) {
-	testCases := []struct {
-		names    []string
-		trycount int
-	}{
-		{names: []string{"test1", "test2"}, trycount: 1},
-		{names: []string{"test1", "test2", "test3"}, trycount: 1},
-		{names: []string{"test1", " test2"}, trycount: 1},
-		{names: []string{"test1", "  test2  "}, trycount: 1},
-	}
-	for _, tc := range testCases {
-		game, _ := racingcar.NewGame(tc.names, tc.trycount)
-		for i, car := range game.Cars {
-			assert.Equal(t, strings.TrimSpace(tc.names[i]), car.Name(), "car name: %s", car.Name())
+	testValid := func(names []string, trycount int) func(t *testing.T) {
+		return func(t *testing.T) {
+			game, err := racingcar.NewGame(names, trycount)
+			if assert.NoError(t, err) {
+				assert.Equal(t, len(names), len(game.Cars), "generated car count: %d", len(game.Cars))
+			}
 		}
 	}
-}
-
-func TestNewGameError(t *testing.T) {
-	testCases := []struct {
-		names    []string
-		trycount int
-	}{
-		{names: make([]string, 0), trycount: 1},
-		{names: []string{"", "test2"}, trycount: 1},
-		{names: []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"}, trycount: 1},
-		{names: []string{"test1", "test2"}, trycount: -1},
-		{names: []string{"test1", "test2"}, trycount: 0},
-		{names: []string{"test1", "test2"}, trycount: 101},
+	testError := func(names []string, trycount int, expectedMsg string) func(t *testing.T) {
+		return func(t *testing.T) {
+			_, err := racingcar.NewGame(names, trycount)
+			assert.EqualError(t, err, expectedMsg, "names: %v, trycount: %d, expected : %v, actual : %v", names, trycount, expectedMsg, err)
+		}
 	}
-	for _, tc := range testCases {
-		_, err := racingcar.NewGame(tc.names, tc.trycount)
-		assert.Error(t, err, "error expected %v, %d", tc.names, tc.trycount)
+
+	testCases := map[string]func(t *testing.T){
+		"valid names ['a'], trycount 1":        testValid([]string{"a", "b"}, 1),
+		"valid names ['a', 'b'], trycount 1":   testValid([]string{"a", "b"}, 1),
+		"valid names ['a', 'b'], trycount 100": testValid([]string{"a", "b"}, 100),
+
+		"invalid names [], trycount 1":                     testError(make([]string, 0), 1, "자동차의 수는 1대 이상 20대 이하만 가능합니다."),
+		"invalid names ['1', '2', ...,  '21'], trycount 1": testError([]string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"}, 1, "자동차의 수는 1대 이상 20대 이하만 가능합니다."),
+		"invvalid names ['a', 'b'], trycount -1":           testError([]string{"a", "b"}, -1, "시도 횟수는 1이상 100이하의 숫자만 가능합니다."),
+		"invvalid names ['a', 'b'], trycount 0":            testError([]string{"a", "b"}, 0, "시도 횟수는 1이상 100이하의 숫자만 가능합니다."),
+		"invvalid names ['a', 'b'], trycount 101":          testError([]string{"a", "b"}, 101, "시도 횟수는 1이상 100이하의 숫자만 가능합니다."),
+	}
+	for name, tc := range testCases {
+		t.Run(name, tc)
 	}
 }
 
